@@ -22,13 +22,14 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not (linux64 or aarch64)]
   skip: true  # [cuda_compiler_version in (None, "None", "") or (cuda_compiler_version or "").startswith("11")]
 
 requirements:
   build:
     - cf-nvidia-tools 1  # [linux]
+  host:
     - python ={{ python_version }}
 
 outputs:
@@ -65,6 +66,7 @@ outputs:
         - libnpp-dev
         - libtorch {{ libtorch_version }}
         - libtorch * cuda*
+        - libnuma           # [aarch64]
         - libvulkan-loader
         - rdma-core
         - ucx {{ ucx_version }}
@@ -88,6 +90,7 @@ outputs:
         - libjpeg-turbo
         - libnpp            # needed on its own as libs depend on it
         - libnpp-dev        # holoscan wants to explicitly install libnpp-dev
+        - libnuma           # [aarch64]
         - libnvjitlink
         - libtorch * cuda*
         - libvulkan-loader
