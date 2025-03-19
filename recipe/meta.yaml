@@ -6,7 +6,7 @@
 {% set ucx_version = "1.17.0.*" %}
 {% set yaml_cpp_version = "0.7.0.*" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
-{% set platform = "linux-sbsa" %}    # [aarch64]
+{% set platform = "linux-sbsa" %}  # [aarch64]
 {% set extension = "tar.xz" %}
 
 {% set sha256 = "3ed03c5f8882975d4241f1a798a78ceea5c91b1ad5278c9db50105d1a8266a28" %}  # [linux64]
@@ -22,7 +22,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not (linux64 or aarch64)]
   skip: true  # [cuda_compiler_version in (None, "None", "") or (cuda_compiler_version or "").startswith("11")]
 
