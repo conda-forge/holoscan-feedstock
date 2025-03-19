@@ -68,13 +68,13 @@ outputs:
         - libtorch * cuda*
         - libnuma           # [aarch64]
         - libvulkan-loader
+        - onnxruntime-cpp  {{ onnx_version }}
         - rdma-core
         - ucx {{ ucx_version }}
         - yaml-cpp  {{ yaml_cpp_version }}
-        - onnxruntime-cpp  {{ onnx_version }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", max_pin="x") }}  # [cuda_compiler_version != "None"]
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - cloudpickle
         - cuda-nvrtc        # needed on its own as libs depend on it
         - cuda-nvrtc-dev    # holoscan wants to explicitly install cuda-nvrtc-dev
@@ -188,14 +188,14 @@ outputs:
         - python ={{ python_version }}
         - yaml-cpp  {{ yaml_cpp_version }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libholoscan", exact=True) }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - cuda-cudart
         - python ={{ python_version }}
     test:
       imports:
-        - holoscan
         - gxf
+        - holoscan
       requires:
         - pip
       commands:
@@ -255,18 +255,18 @@ outputs:
         - cuda-cudart-dev
         - cuda-version {{ cuda_version }}
       run:
+        - {{ pin_subpackage("libholoscan", exact=True) }}
         - python ={{ python_version }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - {{ pin_subpackage("libholoscan", exact=True) }}
     test:
       requires:
-        - cmake
-        - make
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
+        - cmake
         - cuda-version {{ cuda_version }}
         - cuda   # need entire CTK to compile all examples
+        - make
         - patch  # needed by one of the examples
       files:
         - compile_examples.sh
