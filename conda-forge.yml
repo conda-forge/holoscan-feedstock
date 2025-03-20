@@ -1,12 +1,12 @@
-github:
-  branch_name: main
-  tooling_branch_name: main
 azure:
   free_disk_space: true
+#build_platform:  # force full emulation to resolve segfault from some libs
+#  linux_aarch64: linux_64
 conda_build:
   error_overlinking: true
 conda_forge_output_validation: true
+github:
+  branch_name: main
+  tooling_branch_name: main
 provider:
   linux_aarch64: default
-#build_platform:  # force full emulation to resolve segfault from some libs
-#  linux_aarch64: linux_64
