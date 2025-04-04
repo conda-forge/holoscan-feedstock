@@ -1,4 +1,6 @@
-{% set version = "3.0.0.9" %}
+{% set version = "3.1.0.3" %}
+{% set abiversion = version.split('.')[0] %}
+{% set libversion = version.split('.')[:3] | join('.') %}
 {% set cuda_version = "12.6" %}      # min version holoscan works with
 {% set libtorch_version = "2.5.*" %}
 {% set onnx_version = "1.18.1.*" %}
@@ -9,7 +11,7 @@
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
 
-{% set sha256 = "3ed03c5f8882975d4241f1a798a78ceea5c91b1ad5278c9db50105d1a8266a28" %}  # [linux64]
+{% set sha256 = "12718d5a5342a5b5c8bf3f9a5673a7bfb9dd634edfe74c590dec70df48975128" %}  # [linux64]
 {% set sha256 = "d6a36bfa06217893fb79bf8affdb31a4d3942953c7d602918e2655ccf01acb25" %}  # [aarch64 and arm_variant_type == "sbsa"]
 {% set sha256 = "c3e49c05eae6de09f0bbd37b55874754f9209f941a07a34770b5b047960a073d" %}  # [aarch64 and arm_variant_type == "tegra"]
 
@@ -79,7 +81,6 @@ outputs:
         - cuda-nvtx         # needed to fix broken symlinks: libnvToolsExt.so.1.0.0 -> ../targets/x86_64-linux/lib/libnvToolsExt.so.1.0.0
         - cudnn
         - libegl
-        - libgomp
         - libcublas
         - libcufft
         - libcurand
@@ -92,60 +93,61 @@ outputs:
         - libtorch * cuda*
         - libvulkan-loader
         - libzlib
+        - llvm-openmp 19.*
         - nccl
         - rdma-core
     test:
       commands:
-        - test -L $PREFIX/lib/libholoscan_core.so.3
-        - test -L $PREFIX/lib/libholoscan_infer.so.3
-        - test -L $PREFIX/lib/libholoscan_infer_onnx_runtime.so.3
-        - test -L $PREFIX/lib/libholoscan_infer_torch.so.3
-        - test -L $PREFIX/lib/libholoscan_infer_utils.so.3
-        - test -L $PREFIX/lib/libholoscan_logger.so.3
-        - test -L $PREFIX/lib/libholoscan_op_async_ping_rx.so.3
-        - test -L $PREFIX/lib/libholoscan_op_async_ping_tx.so.3
-        - test -L $PREFIX/lib/libholoscan_op_bayer_demosaic.so.3
-        - test -L $PREFIX/lib/libholoscan_op_format_converter.so.3
-        - test -L $PREFIX/lib/libholoscan_op_gxf_codelet.so.3
-        - test -L $PREFIX/lib/libholoscan_op_holoviz.so.3
-        - test -L $PREFIX/lib/libholoscan_op_inference.so.3
-        - test -L $PREFIX/lib/libholoscan_op_inference_processor.so.3
-        - test -L $PREFIX/lib/libholoscan_op_ping_rx.so.3
-        - test -L $PREFIX/lib/libholoscan_op_ping_tensor_rx.so.3
-        - test -L $PREFIX/lib/libholoscan_op_ping_tensor_tx.so.3
-        - test -L $PREFIX/lib/libholoscan_op_ping_tx.so.3
-        - test -L $PREFIX/lib/libholoscan_op_segmentation_postprocessor.so.3
-        - test -L $PREFIX/lib/libholoscan_op_v4l2.so.3
-        - test -L $PREFIX/lib/libholoscan_op_video_stream_recorder.so.3
-        - test -L $PREFIX/lib/libholoscan_op_video_stream_replayer.so.3
-        - test -L $PREFIX/lib/libholoscan_profiler.so.3
-        - test -L $PREFIX/lib/libholoscan_spdlog_logger.so.3
-        - test -L $PREFIX/lib/libholoscan_viz.so.3
-        - test -f $PREFIX/lib/libholoscan_core.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_infer.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_infer_onnx_runtime.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_infer_torch.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_infer_utils.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_logger.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_async_ping_rx.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_async_ping_tx.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_bayer_demosaic.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_format_converter.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_gxf_codelet.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_holoviz.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_inference.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_inference_processor.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_ping_rx.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_ping_tensor_rx.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_ping_tensor_tx.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_ping_tx.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_segmentation_postprocessor.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_v4l2.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_video_stream_recorder.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_op_video_stream_replayer.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_profiler.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_spdlog_logger.so.3.0.0
-        - test -f $PREFIX/lib/libholoscan_viz.so.3.0.0
+        - test -L $PREFIX/lib/libholoscan_core.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_infer.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_infer_onnx_runtime.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_infer_torch.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_infer_utils.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_logger.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_async_ping_rx.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_async_ping_tx.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_bayer_demosaic.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_format_converter.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_gxf_codelet.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_holoviz.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_inference.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_inference_processor.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_ping_rx.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_ping_tensor_rx.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_ping_tensor_tx.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_ping_tx.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_segmentation_postprocessor.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_v4l2.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_video_stream_recorder.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_op_video_stream_replayer.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_profiler.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_spdlog_logger.so.{{ abiversion }}
+        - test -L $PREFIX/lib/libholoscan_viz.so.{{ abiversion }}
+        - test -f $PREFIX/lib/libholoscan_core.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_infer.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_infer_onnx_runtime.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_infer_torch.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_infer_utils.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_logger.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_async_ping_rx.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_async_ping_tx.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_bayer_demosaic.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_format_converter.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_gxf_codelet.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_holoviz.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_inference.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_inference_processor.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_ping_rx.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_ping_tensor_rx.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_ping_tensor_tx.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_ping_tx.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_segmentation_postprocessor.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_v4l2.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_video_stream_recorder.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_op_video_stream_replayer.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_profiler.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_spdlog_logger.so.{{ libversion }}
+        - test -f $PREFIX/lib/libholoscan_viz.so.{{ libversion }}
         - test -f $PREFIX/lib/libgxf_app.so
         - test -f $PREFIX/lib/libgxf_core.so
         - test -f $PREFIX/lib/libgxf_cuda.so
