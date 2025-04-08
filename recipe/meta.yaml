@@ -12,8 +12,7 @@
 {% set extension = "tar.xz" %}
 
 {% set sha256 = "12718d5a5342a5b5c8bf3f9a5673a7bfb9dd634edfe74c590dec70df48975128" %}  # [linux64]
-{% set sha256 = "d6a36bfa06217893fb79bf8affdb31a4d3942953c7d602918e2655ccf01acb25" %}  # [aarch64 and arm_variant_type == "sbsa"]
-{% set sha256 = "c3e49c05eae6de09f0bbd37b55874754f9209f941a07a34770b5b047960a073d" %}  # [aarch64 and arm_variant_type == "tegra"]
+{% set sha256 = "6c067a98404a8a6f020f49d76cf7fde09319a69c6245ae84cd93079971ac622b" %}  # [aarch64 and arm_variant_type == "sbsa"]
 
 package:
   name: holoscan-split
@@ -24,13 +23,15 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not (linux64 or aarch64)]
   skip: true  # [cuda_compiler_version in (None, "None", "") or (cuda_compiler_version or "").startswith("11")]
 
 requirements:
   build:
     - cf-nvidia-tools 1  # [linux]
+    - python ={{ python_version }}
+  host:
     - python ={{ python_version }}
 
 outputs:
@@ -65,13 +66,14 @@ outputs:
         - cuda-version {{ cuda_version }}
         - libjpeg-turbo
         - libnpp-dev
+        - libnuma           # [aarch64]
         - libtorch {{ libtorch_version }}
         - libtorch * cuda*
         - libvulkan-loader
         - rdma-core
         - ucx {{ ucx_version }}
-        - yaml-cpp  {{ yaml_cpp_version }}
         - onnxruntime-cpp  {{ onnx_version }}
+        - yaml-cpp  {{ yaml_cpp_version }}
       run:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", max_pin="x") }}  # [cuda_compiler_version != "None"]
@@ -80,6 +82,7 @@ outputs:
         - cuda-nvrtc-dev    # holoscan wants to explicitly install cuda-nvrtc-dev
         - cuda-nvtx         # needed to fix broken symlinks: libnvToolsExt.so.1.0.0 -> ../targets/x86_64-linux/lib/libnvToolsExt.so.1.0.0
         - cudnn
+        - dbus              # [aarch64]  # Without this, segfault happens during camera app test in https://github.com/nvidia-holoscan/holoscan-sdk/tree/main/python
         - libegl
         - libcublas
         - libcufft
@@ -89,6 +92,7 @@ outputs:
         - libjpeg-turbo
         - libnpp            # needed on its own as libs depend on it
         - libnpp-dev        # holoscan wants to explicitly install libnpp-dev
+        - libnuma           # [aarch64]
         - libnvjitlink
         - libtorch * cuda*
         - libvulkan-loader
