@@ -19,18 +19,6 @@ NVIDIA Holoscan is the AI sensor processing platform that combines hardware syst
 It can be used to build streaming AI pipelines for a variety of domains, including Medical Devices, High Performance Computing at the Edge, Industrial Inspection and more.
 
 
-About libholoscan
------------------
-
-
-
-Package license: [LicenseRef-NVIDIA-End-User-License-Agreement](https://developer.download.nvidia.com/assets/Clara/NVIDIA_Clara_EULA.pdf)
-
-Summary: NVIDIA Holoscan runtime library
-
-This is a runtime package only. Developers should install holoscan (python) to build with Holoscan
-
-
 About holoscan
 --------------
 
@@ -41,6 +29,18 @@ Package license: [LicenseRef-NVIDIA-End-User-License-Agreement](https://develope
 Summary: NVIDIA Holoscan python bindings
 
 NVIDIA Holoscan python bindings
+
+
+About libholoscan
+-----------------
+
+
+
+Package license: [LicenseRef-NVIDIA-End-User-License-Agreement](https://developer.download.nvidia.com/assets/Clara/NVIDIA_Clara_EULA.pdf)
+
+Summary: NVIDIA Holoscan runtime library
+
+This is a runtime package only. Developers should install holoscan (python) to build with Holoscan
 
 
 Current build status
@@ -61,17 +61,17 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13</td>
+              <td>linux_64_c_compiler_version13cuda_compiler_version12.6cxx_compiler_version13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version13cuda_compiler_version12.6cxx_compiler_version13" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13</td>
+              <td>linux_aarch64_c_compiler_version13cuda_compiler_version12.6cxx_compiler_version13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version13cuda_compiler_version12.6cxx_compiler_version13" alt="variant">
                 </a>
               </td>
             </tr>
