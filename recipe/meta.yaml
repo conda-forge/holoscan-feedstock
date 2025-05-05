@@ -1,4 +1,4 @@
-{% set version = "3.1.0.3" %}
+{% set version = "3.2.0.2" %}
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
 {% set cuda_version = "12.6" %}      # min version holoscan works with
@@ -11,8 +11,8 @@
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
 
-{% set sha256 = "12718d5a5342a5b5c8bf3f9a5673a7bfb9dd634edfe74c590dec70df48975128" %}  # [linux64]
-{% set sha256 = "6c067a98404a8a6f020f49d76cf7fde09319a69c6245ae84cd93079971ac622b" %}  # [aarch64 and arm_variant_type == "sbsa"]
+{% set sha256 = "e8c673a1fdd23e86087a8617e6017fb1dd1810e1c137ce2fcdcf8af8cfb2b2a6" %}  # [linux64]
+{% set sha256 = "bd9290c8c4d5b8a2716fb0207a73d5d6934e560aabd5cf70ae6626f5e98b5fc0" %}  # [aarch64 and arm_variant_type == "sbsa"]
 
 package:
   name: holoscan-split
@@ -23,7 +23,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 0
   skip: true  # [not (linux64 or aarch64)]
   skip: true  # [cuda_compiler_version in (None, "None", "") or (cuda_compiler_version or "").startswith("11")]
 
