@@ -72,8 +72,8 @@ outputs:
         - libvulkan-loader
         - rdma-core
         - ucx {{ ucx_version }}
-        - onnxruntime-cpp  {{ onnx_version }}
         - yaml-cpp  {{ yaml_cpp_version }}
+        - onnxruntime-cpp  {{ onnx_version }}
       run:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", max_pin="x") }}  # [cuda_compiler_version != "None"]
@@ -172,11 +172,10 @@ outputs:
       license_url: https://developer.download.nvidia.com/assets/Clara/NVIDIA_Clara_EULA.pdf
       summary: NVIDIA Holoscan runtime library
       description: |
-        This is a runtime package only. Developers should install holoscan (python) to build with Holoscan
+        This is a runtime package only. Developers should install holoscan (python) and/or libholoscan-dev (C++ SDK) to build with Holoscan
 
   - name: holoscan
     files:
-      - examples/
       - lib/python{{ python_version }}/site-packages/gxf
       - lib/python{{ python_version }}/site-packages/holoscan
     requirements:
@@ -215,13 +214,9 @@ outputs:
 
   - name: libholoscan-dev
     build:
-      # FIXME: Unskip dev package after removing revended packages.
-      skip: true
       run_exports:
         - {{ pin_subpackage("libholoscan", max_pin="x") }}
     files:
-      # FIXME: Figure out a better way to deliver the readme text. Conda package description? Print to terminal as an activation script?
-      - bin/README.md
       - bin/convert_gxf_entities_to_images.py
       - bin/convert_gxf_entities_to_video.py
       - bin/convert_video_to_gxf_entities.py
@@ -245,7 +240,20 @@ outputs:
       - include/magic_enum.hpp
       - include/rmm
       - lib/libholoscan*.so
-      - lib/cmake
+      - lib/cmake/holoscan/holoscan-targets-release.cmake
+      - lib/cmake/holoscan/wrap_operator_as_gxf_template/extension.cpp.in
+      - lib/cmake/holoscan/wrap_operator_as_gxf_template/codelet.cpp.in
+      - lib/cmake/holoscan/wrap_operator_as_gxf_template/codelet.hpp.in
+      - lib/cmake/holoscan/HoloscanDownloadData.cmake
+      - lib/cmake/holoscan/holoscan-config.cmake
+      - lib/cmake/holoscan/WrapOperatorAsGXFExtension.cmake
+      - lib/cmake/holoscan/GenerateGXEApp.cmake
+      - lib/cmake/holoscan/holoscan-config-version.cmake
+      - lib/cmake/holoscan/wrap_resource_as_gxf_template/component.cpp.in
+      - lib/cmake/holoscan/wrap_resource_as_gxf_template/component.hpp.in
+      - lib/cmake/holoscan/WrapAsGXFComponent.cmake
+      - lib/cmake/holoscan/holoscan-targets.cmake
+      - lib/cmake/holoscan/holoscan-dependencies.cmake
       - lib/libholo*.a
     requirements:
       build:
@@ -257,8 +265,8 @@ outputs:
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-cudart-dev
         - cuda-version {{ cuda_version }}
-      run:
         - python ={{ python_version }}
+      run:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libholoscan", exact=True) }}
     test:
@@ -273,8 +281,9 @@ outputs:
         - patch  # needed by one of the examples
       files:
         - compile_examples.sh
+      source_files:
+        - lib/libyaml-cpp.a
       commands:
-        - test -f $PREFIX/bin/README.md
         - test -f $PREFIX/bin/convert_gxf_entities_to_images.py
         - test -f $PREFIX/bin/convert_gxf_entities_to_video.py
         - test -f $PREFIX/bin/convert_video_to_gxf_entities.py

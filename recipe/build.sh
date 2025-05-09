@@ -9,7 +9,6 @@ mkdir -p $PREFIX/NOTICE
 mkdir -p $SP_DIR
 echo "site-packages dir, SP_DIR = $SP_DIR"
 
-rm -v lib/libyaml-cpp*
 rm -vr include/yaml-cpp
 
 rm -v lib/libuc[mpst]*
