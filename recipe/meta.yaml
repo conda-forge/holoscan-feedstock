@@ -1,10 +1,10 @@
-{% set version = "3.2.0.2" %}
+{% set version = "3.3.0.0" %}
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
 {% set cuda_version = "12.6" %}      # min version holoscan works with
 {% set libtorch_version = "2.5.*" %}
 {% set onnx_version = "1.18.1.*" %}
-{% set python_version = "3.10" %}    # holoscan python libs compiled for python 3.10
+{% set python_version = "3.12" %}    # holoscan python libs compiled for python 3.12
 {% set ucx_version = "1.17.0.*" %}
 {% set yaml_cpp_version = "0.7.0.*" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
@@ -49,6 +49,7 @@ outputs:
       ignore_run_exports_from:
         - {{ compiler('cuda') }}
         - libnpp-dev  # libnpp is tied to specific cuda-version at x.x, so relax it, as we support cuda-version >= 12.6, < 13
+      post-link: post-link
     files:
       - NOTICE/NOTICE
       - lib/libholoscan*.so.*
@@ -70,6 +71,7 @@ outputs:
         - libtorch {{ libtorch_version }}
         - libtorch * cuda*
         - libvulkan-loader
+        - openssl
         - rdma-core
         - ucx {{ ucx_version }}
         - yaml-cpp  {{ yaml_cpp_version }}
@@ -176,7 +178,7 @@ outputs:
 
   - name: holoscan
     files:
-      - lib/python{{ python_version }}/site-packages/gxf
+      #- lib/python{{ python_version }}/site-packages/gxf  # Dropped GXP support in holoscan 3.3.0 with GXF 5.5.0. It may be added back in the future.
       - lib/python{{ python_version }}/site-packages/holoscan
     requirements:
       build:
@@ -193,15 +195,14 @@ outputs:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-cudart
-        - python ={{ python_version }}
     test:
       imports:
         - holoscan
-        - gxf
+        #- gxf  # Dropped GXP support in holoscan 3.3.0 with GXF 5.5.0. It may be added back in the future
       requires:
         - pip
       commands:
-        - test -d $PREFIX/lib/python{{ python_version }}/site-packages/gxf
+        #- test -d $PREFIX/lib/python{{ python_version }}/site-packages/gxf  # Dropped GXP support in holoscan 3.3.0 with GXF 5.5.0. It may be added back in the future.
         - test -d $PREFIX/lib/python{{ python_version }}/site-packages/holoscan
         - pip check
     about:
@@ -227,6 +228,7 @@ outputs:
       - bin/graph_surgeon.py
       - bin/gxe
       - bin/gxf_entity_codec.py
+      - bin/get_cmake_cuda_archs.py
       - bin/holoscan
       - bin/video_validation.py
       - examples/
