@@ -1,4 +1,4 @@
-{% set version = "3.3.0.0" %}
+{% set version = "3.3.0.1" %}
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
 {% set cuda_version = "12.6" %}      # min version holoscan works with
@@ -296,6 +296,7 @@ outputs:
         - test -f $PREFIX/bin/graph_surgeon.py
         - test -f $PREFIX/bin/gxe
         - test -f $PREFIX/bin/gxf_entity_codec.py
+        - test -f $PREFIX/bin/get_cmake_cuda_archs.py
         - test -f $PREFIX/bin/holoscan
         - test -f $PREFIX/bin/video_validation.py
         - test -d $PREFIX/lib/cmake/holoscan
