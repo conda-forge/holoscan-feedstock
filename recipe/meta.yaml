@@ -11,8 +11,9 @@
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
 
-{% set sha256 = "e8c673a1fdd23e86087a8617e6017fb1dd1810e1c137ce2fcdcf8af8cfb2b2a6" %}  # [linux64]
-{% set sha256 = "bd9290c8c4d5b8a2716fb0207a73d5d6934e560aabd5cf70ae6626f5e98b5fc0" %}  # [aarch64 and arm_variant_type == "sbsa"]
+
+{% set sha256 = "5ee952a95c596f80135561b20dae27ae7dada192e9172758989911958bb3a46a" %}  # [linux64]
+{% set sha256 = "516e54ca28b007ddaa408f707b2048b67e2b0f1f59ac9578a3a05e861bbb49e9" %}  # [aarch64 and arm_variant_type == "sbsa"]
 
 package:
   name: holoscan-split
@@ -46,12 +47,11 @@ outputs:
         - "*libtorchvision.so*"       # not available even in torchvision package
         - "*libv4l2.so*"              # lideo4linux2 lib, not available
         - "*libxpmem.so*"             # XPMEM, Linux Cross-Memory Attach kernel module, not available
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
-        - libnpp-dev  # libnpp is tied to specific cuda-version at x.x, so relax it, as we support cuda-version >= 12.6, < 13
+      ignore_run_exports:
+        # we support cuda-version >= 12.6, < 13
+        - cuda-version
       post-link: post-link
     files:
-      - NOTICE/NOTICE
       - lib/libholoscan*.so.*
       - lib/gxf_extensions
       - lib/libgxf*.so
@@ -170,7 +170,9 @@ outputs:
         - test -f $PREFIX/lib/gxf_extensions/libgxf_ucx_holoscan_lib.so
     about:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
+      license_file:
+        - LICENSE
+        - NOTICE
       license_url: https://developer.download.nvidia.com/assets/Clara/NVIDIA_Clara_EULA.pdf
       summary: NVIDIA Holoscan runtime library
       description: |
@@ -207,7 +209,9 @@ outputs:
         - pip check
     about:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
+      license_file:
+        - LICENSE
+        - NOTICE
       license_url: https://developer.download.nvidia.com/assets/Clara/NVIDIA_Clara_EULA.pdf
       summary: NVIDIA Holoscan python bindings
       description: |
@@ -341,7 +345,9 @@ outputs:
 about:
   home: https://docs.nvidia.com/cuda/holoscan/
   license: LicenseRef-NVIDIA-End-User-License-Agreement
-  license_file: LICENSE
+  license_file:
+    - LICENSE
+    - NOTICE
   license_url: https://developer.download.nvidia.com/assets/Clara/NVIDIA_Clara_EULA.pdf
   summary: NVIDIA Holoscan is the AI sensor processing platform that combines hardware systems for low-latency sensor and network connectivity, optimized libraries for data processing and AI, and core microservices to run streaming, imaging, and other applications, from embedded to edge to cloud.
   description: |
