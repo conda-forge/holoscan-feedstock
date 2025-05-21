@@ -63,45 +63,28 @@ outputs:
         - {{ stdlib("c") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
-        - cuda-cudart-dev
         - cuda-version {{ cuda_version }}
+        - cuda-nvrtc-dev
+        - cupy
         - libjpeg-turbo
         - libnpp-dev
-        - libnuma           # [aarch64]
         - libtorch {{ libtorch_version }}
         - libtorch * cuda*
         - libvulkan-loader
         - openssl
-        - rdma-core
         - ucx {{ ucx_version }}
-        - yaml-cpp  {{ yaml_cpp_version }}
         - onnxruntime-cpp  {{ onnx_version }}
       run:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", max_pin="x") }}  # [cuda_compiler_version != "None"]
         - cloudpickle
-        - cuda-nvrtc        # needed on its own as libs depend on it
-        - cuda-nvrtc-dev    # holoscan wants to explicitly install cuda-nvrtc-dev
-        - cuda-nvtx         # needed to fix broken symlinks: libnvToolsExt.so.1.0.0 -> ../targets/x86_64-linux/lib/libnvToolsExt.so.1.0.0
-        - cudnn
+        - cuda-cudart
+        - cupy
         - dbus              # [aarch64]  # Without this, segfault happens during camera app test in https://github.com/nvidia-holoscan/holoscan-sdk/tree/main/python
         - libegl
-        - libcublas
-        - libcufft
-        - libcurand
-        - libcusolver
-        - libcusparse
         - libjpeg-turbo
-        - libnpp            # needed on its own as libs depend on it
-        - libnpp-dev        # holoscan wants to explicitly install libnpp-dev
-        - libnuma           # [aarch64]
-        - libnvjitlink
         - libtorch * cuda*
         - libvulkan-loader
-        - libzlib
-        - llvm-openmp 19.*
-        - nccl
-        - rdma-core
     test:
       commands:
         - test -L $PREFIX/lib/libholoscan_core.so.{{ abiversion }}
@@ -192,7 +175,6 @@ outputs:
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-version {{ cuda_version }}
         - python ={{ python_version }}
-        - yaml-cpp  {{ yaml_cpp_version }}
       run:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libholoscan", exact=True) }}
@@ -269,12 +251,16 @@ outputs:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
         - {{ pin_subpackage("libholoscan", exact=True) }}
-        - cuda-cudart-dev
         - cuda-version {{ cuda_version }}
         - python ={{ python_version }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libholoscan", exact=True) }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - cuda-cudart
+        - cuda-cudart-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - cuda-nvrtc-dev    # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - libnpp-dev        # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - yaml-cpp          # holoscan wants to explicitly install this as it is needed for holoscan public interface
     test:
       requires:
         - cmake
