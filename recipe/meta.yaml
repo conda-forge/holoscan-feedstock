@@ -65,7 +65,6 @@ outputs:
       host:
         - cuda-version {{ cuda_version }}
         - cuda-nvrtc-dev
-        - cupy
         - libjpeg-turbo
         - libnpp-dev
         - libtorch {{ libtorch_version }}
@@ -79,7 +78,6 @@ outputs:
         - {{ pin_compatible("cuda-version", max_pin="x") }}  # [cuda_compiler_version != "None"]
         - cloudpickle
         - cuda-cudart
-        - cupy
         - dbus              # [aarch64]  # Without this, segfault happens during camera app test in https://github.com/nvidia-holoscan/holoscan-sdk/tree/main/python
         - libegl
         - libjpeg-turbo
@@ -176,6 +174,7 @@ outputs:
         - cuda-version {{ cuda_version }}
         - python ={{ python_version }}
       run:
+        - cupy
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-cudart
@@ -256,6 +255,7 @@ outputs:
       run:
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - cuda-nvcc         # holoscan wants to explicitly install this as it is needed for holoscan public interface
         - cuda-cudart
         - cuda-cudart-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
         - cuda-nvrtc-dev    # holoscan wants to explicitly install this as it is needed for holoscan public interface
