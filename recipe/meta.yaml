@@ -1,18 +1,19 @@
-{% set version = "3.2.0.2" %}
+{% set version = "3.3.0.1" %}
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
 {% set cuda_version = "12.6" %}      # min version holoscan works with
 {% set libtorch_version = "2.5.*" %}
 {% set onnx_version = "1.18.1.*" %}
-{% set python_version = "3.10" %}    # holoscan python libs compiled for python 3.10
+{% set python_version = "3.12" %}    # holoscan python libs compiled for python 3.12
 {% set ucx_version = "1.17.0.*" %}
 {% set yaml_cpp_version = "0.7.0.*" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
 
-{% set sha256 = "e8c673a1fdd23e86087a8617e6017fb1dd1810e1c137ce2fcdcf8af8cfb2b2a6" %}  # [linux64]
-{% set sha256 = "bd9290c8c4d5b8a2716fb0207a73d5d6934e560aabd5cf70ae6626f5e98b5fc0" %}  # [aarch64 and arm_variant_type == "sbsa"]
+
+{% set sha256 = "5ee952a95c596f80135561b20dae27ae7dada192e9172758989911958bb3a46a" %}  # [linux64]
+{% set sha256 = "516e54ca28b007ddaa408f707b2048b67e2b0f1f59ac9578a3a05e861bbb49e9" %}  # [aarch64 and arm_variant_type == "sbsa"]
 
 package:
   name: holoscan-split
@@ -46,11 +47,11 @@ outputs:
         - "*libtorchvision.so*"       # not available even in torchvision package
         - "*libv4l2.so*"              # lideo4linux2 lib, not available
         - "*libxpmem.so*"             # XPMEM, Linux Cross-Memory Attach kernel module, not available
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
-        - libnpp-dev  # libnpp is tied to specific cuda-version at x.x, so relax it, as we support cuda-version >= 12.6, < 13
+      ignore_run_exports:
+        # we support cuda-version >= 12.6, < 13
+        - cuda-version
+      post-link: post-link
     files:
-      - NOTICE/NOTICE
       - lib/libholoscan*.so.*
       - lib/gxf_extensions
       - lib/libgxf*.so
@@ -62,44 +63,26 @@ outputs:
         - {{ stdlib("c") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
-        - cuda-cudart-dev
         - cuda-version {{ cuda_version }}
+        - cuda-nvrtc-dev
         - libjpeg-turbo
         - libnpp-dev
-        - libnuma           # [aarch64]
         - libtorch {{ libtorch_version }}
         - libtorch * cuda*
         - libvulkan-loader
-        - rdma-core
+        - openssl
         - ucx {{ ucx_version }}
         - onnxruntime-cpp  {{ onnx_version }}
-        - yaml-cpp  {{ yaml_cpp_version }}
       run:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", max_pin="x") }}  # [cuda_compiler_version != "None"]
         - cloudpickle
-        - cuda-nvrtc        # needed on its own as libs depend on it
-        - cuda-nvrtc-dev    # holoscan wants to explicitly install cuda-nvrtc-dev
-        - cuda-nvtx         # needed to fix broken symlinks: libnvToolsExt.so.1.0.0 -> ../targets/x86_64-linux/lib/libnvToolsExt.so.1.0.0
-        - cudnn
+        - cuda-cudart
         - dbus              # [aarch64]  # Without this, segfault happens during camera app test in https://github.com/nvidia-holoscan/holoscan-sdk/tree/main/python
         - libegl
-        - libcublas
-        - libcufft
-        - libcurand
-        - libcusolver
-        - libcusparse
         - libjpeg-turbo
-        - libnpp            # needed on its own as libs depend on it
-        - libnpp-dev        # holoscan wants to explicitly install libnpp-dev
-        - libnuma           # [aarch64]
-        - libnvjitlink
         - libtorch * cuda*
         - libvulkan-loader
-        - libzlib
-        - llvm-openmp 19.*
-        - nccl
-        - rdma-core
     test:
       commands:
         - test -L $PREFIX/lib/libholoscan_core.so.{{ abiversion }}
@@ -168,16 +151,17 @@ outputs:
         - test -f $PREFIX/lib/gxf_extensions/libgxf_ucx_holoscan_lib.so
     about:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
+      license_file:
+        - LICENSE
+        - NOTICE
       license_url: https://developer.download.nvidia.com/assets/Clara/NVIDIA_Clara_EULA.pdf
       summary: NVIDIA Holoscan runtime library
       description: |
-        This is a runtime package only. Developers should install holoscan (python) to build with Holoscan
+        This is a runtime package only. Developers should install holoscan (python) and/or libholoscan-dev (C++ SDK) to build with Holoscan
 
   - name: holoscan
     files:
-      - examples/
-      - lib/python{{ python_version }}/site-packages/gxf
+      #- lib/python{{ python_version }}/site-packages/gxf  # Dropped GXP support in holoscan 3.3.0 with GXF 5.5.0. It may be added back in the future.
       - lib/python{{ python_version }}/site-packages/holoscan
     requirements:
       build:
@@ -189,25 +173,26 @@ outputs:
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-version {{ cuda_version }}
         - python ={{ python_version }}
-        - yaml-cpp  {{ yaml_cpp_version }}
       run:
+        - cupy
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-cudart
-        - python ={{ python_version }}
     test:
       imports:
         - holoscan
-        - gxf
+        #- gxf  # Dropped GXP support in holoscan 3.3.0 with GXF 5.5.0. It may be added back in the future
       requires:
         - pip
       commands:
-        - test -d $PREFIX/lib/python{{ python_version }}/site-packages/gxf
+        #- test -d $PREFIX/lib/python{{ python_version }}/site-packages/gxf  # Dropped GXP support in holoscan 3.3.0 with GXF 5.5.0. It may be added back in the future.
         - test -d $PREFIX/lib/python{{ python_version }}/site-packages/holoscan
         - pip check
     about:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
+      license_file:
+        - LICENSE
+        - NOTICE
       license_url: https://developer.download.nvidia.com/assets/Clara/NVIDIA_Clara_EULA.pdf
       summary: NVIDIA Holoscan python bindings
       description: |
@@ -215,13 +200,9 @@ outputs:
 
   - name: libholoscan-dev
     build:
-      # FIXME: Unskip dev package after removing revended packages.
-      skip: true
       run_exports:
         - {{ pin_subpackage("libholoscan", max_pin="x") }}
     files:
-      # FIXME: Figure out a better way to deliver the readme text. Conda package description? Print to terminal as an activation script?
-      - bin/README.md
       - bin/convert_gxf_entities_to_images.py
       - bin/convert_gxf_entities_to_video.py
       - bin/convert_video_to_gxf_entities.py
@@ -232,6 +213,7 @@ outputs:
       - bin/graph_surgeon.py
       - bin/gxe
       - bin/gxf_entity_codec.py
+      - bin/get_cmake_cuda_archs.py
       - bin/holoscan
       - bin/video_validation.py
       - examples/
@@ -245,7 +227,20 @@ outputs:
       - include/magic_enum.hpp
       - include/rmm
       - lib/libholoscan*.so
-      - lib/cmake
+      - lib/cmake/holoscan/holoscan-targets-release.cmake
+      - lib/cmake/holoscan/wrap_operator_as_gxf_template/extension.cpp.in
+      - lib/cmake/holoscan/wrap_operator_as_gxf_template/codelet.cpp.in
+      - lib/cmake/holoscan/wrap_operator_as_gxf_template/codelet.hpp.in
+      - lib/cmake/holoscan/HoloscanDownloadData.cmake
+      - lib/cmake/holoscan/holoscan-config.cmake
+      - lib/cmake/holoscan/WrapOperatorAsGXFExtension.cmake
+      - lib/cmake/holoscan/GenerateGXEApp.cmake
+      - lib/cmake/holoscan/holoscan-config-version.cmake
+      - lib/cmake/holoscan/wrap_resource_as_gxf_template/component.cpp.in
+      - lib/cmake/holoscan/wrap_resource_as_gxf_template/component.hpp.in
+      - lib/cmake/holoscan/WrapAsGXFComponent.cmake
+      - lib/cmake/holoscan/holoscan-targets.cmake
+      - lib/cmake/holoscan/holoscan-dependencies.cmake
       - lib/libholo*.a
     requirements:
       build:
@@ -255,12 +250,17 @@ outputs:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
         - {{ pin_subpackage("libholoscan", exact=True) }}
-        - cuda-cudart-dev
         - cuda-version {{ cuda_version }}
-      run:
         - python ={{ python_version }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+      run:
         - {{ pin_subpackage("libholoscan", exact=True) }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - cuda-nvcc         # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - cuda-cudart
+        - cuda-cudart-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - cuda-nvrtc-dev    # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - libnpp-dev        # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - yaml-cpp          # holoscan wants to explicitly install this as it is needed for holoscan public interface
     test:
       requires:
         - cmake
@@ -273,8 +273,9 @@ outputs:
         - patch  # needed by one of the examples
       files:
         - compile_examples.sh
+      source_files:
+        - lib/libyaml-cpp.a
       commands:
-        - test -f $PREFIX/bin/README.md
         - test -f $PREFIX/bin/convert_gxf_entities_to_images.py
         - test -f $PREFIX/bin/convert_gxf_entities_to_video.py
         - test -f $PREFIX/bin/convert_video_to_gxf_entities.py
@@ -285,6 +286,7 @@ outputs:
         - test -f $PREFIX/bin/graph_surgeon.py
         - test -f $PREFIX/bin/gxe
         - test -f $PREFIX/bin/gxf_entity_codec.py
+        - test -f $PREFIX/bin/get_cmake_cuda_archs.py
         - test -f $PREFIX/bin/holoscan
         - test -f $PREFIX/bin/video_validation.py
         - test -d $PREFIX/lib/cmake/holoscan
@@ -329,7 +331,9 @@ outputs:
 about:
   home: https://docs.nvidia.com/cuda/holoscan/
   license: LicenseRef-NVIDIA-End-User-License-Agreement
-  license_file: LICENSE
+  license_file:
+    - LICENSE
+    - NOTICE
   license_url: https://developer.download.nvidia.com/assets/Clara/NVIDIA_Clara_EULA.pdf
   summary: NVIDIA Holoscan is the AI sensor processing platform that combines hardware systems for low-latency sensor and network connectivity, optimized libraries for data processing and AI, and core microservices to run streaming, imaging, and other applications, from embedded to edge to cloud.
   description: |
