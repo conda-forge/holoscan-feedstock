@@ -1,4 +1,4 @@
-{% set version = "3.3.0.1" %}
+{% set version = "3.4.0.0" %}
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
 {% set cuda_version = "12.6" %}      # min version holoscan works with
@@ -12,15 +12,15 @@
 {% set extension = "tar.xz" %}
 
 
-{% set sha256 = "5ee952a95c596f80135561b20dae27ae7dada192e9172758989911958bb3a46a" %}  # [linux64]
-{% set sha256 = "516e54ca28b007ddaa408f707b2048b67e2b0f1f59ac9578a3a05e861bbb49e9" %}  # [aarch64 and arm_variant_type == "sbsa"]
+{% set sha256 = "b9cf96dba3e4eb4813c082c1bf95976a90dc73e2b15862c134c44c0419465513" %}  # [linux64]
+{% set sha256 = "4fe694755a095db1e7fdea8c762bd18c1968aa43946034738370fc5d8e122a1e" %}  # [aarch64 and arm_variant_type == "sbsa"]
 
 package:
   name: holoscan-split
   version: {{ version }}
 
 source:
-  url: https://developer.download.nvidia.com/compute/holoscan/redist/holoscan/{{ platform }}/holoscan-{{ platform }}-{{ version }}-archive.{{ extension }}
+  url: https://kitmaker-web.nvidia.com/kitpicks/holoscan-release/3.4.0/001/redist/holoscan/holoscan/{{ platform }}/holoscan-{{ platform }}-{{ version }}-archive.{{ extension }}
   sha256: {{ sha256 }}
 
 build:
