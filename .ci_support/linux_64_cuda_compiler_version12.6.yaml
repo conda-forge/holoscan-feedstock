@@ -26,8 +26,6 @@ libjpeg_turbo:
 - '3'
 openssl:
 - '3'
-rdma_core:
-- '55'
 target_platform:
 - linux-64
 xz:
@@ -35,6 +33,4 @@ xz:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-  - cuda_compiler
   - cuda_compiler_version
-  - docker_image
