@@ -1,4 +1,4 @@
-{% set version = "3.4.0.2" %}
+{% set version = "3.5.0.1" %}
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
 {% set cuda_version = "12.6" %}      # min version holoscan works with
@@ -12,8 +12,8 @@
 {% set extension = "tar.xz" %}
 
 
-{% set sha256 = "1b99d719023044e21a21d11b7c4cc98b31148190bd8caf31415b9032ce340a3a" %}  # [linux64]
-{% set sha256 = "5f8b04625fb83c9fe75c90a6d0abaac9fd0024579c3028565adf884f628a9790" %}  # [aarch64 and arm_variant_type == "sbsa"]
+{% set sha256 = "2d00266f814963f152107a02363121780238842d4068a97c37822891d7c42b98" %}  # [linux64]
+{% set sha256 = "2e070a1cf497167f166ec312ab04e6529a27b0c8c7350cd047836ff52b072208" %}  # [aarch64 and arm_variant_type == "sbsa"]
 
 package:
   name: holoscan-split
@@ -55,6 +55,7 @@ outputs:
       - lib/libholoscan*.so.*
       - lib/gxf_extensions
       - lib/libgxf*.so
+      - lib/libucxx.so
     requirements:
       build:
         - {{ compiler('c') }}
@@ -227,20 +228,7 @@ outputs:
       - include/magic_enum.hpp
       - include/rmm
       - lib/libholoscan*.so
-      - lib/cmake/holoscan/holoscan-targets-release.cmake
-      - lib/cmake/holoscan/wrap_operator_as_gxf_template/extension.cpp.in
-      - lib/cmake/holoscan/wrap_operator_as_gxf_template/codelet.cpp.in
-      - lib/cmake/holoscan/wrap_operator_as_gxf_template/codelet.hpp.in
-      - lib/cmake/holoscan/HoloscanDownloadData.cmake
-      - lib/cmake/holoscan/holoscan-config.cmake
-      - lib/cmake/holoscan/WrapOperatorAsGXFExtension.cmake
-      - lib/cmake/holoscan/GenerateGXEApp.cmake
-      - lib/cmake/holoscan/holoscan-config-version.cmake
-      - lib/cmake/holoscan/wrap_resource_as_gxf_template/component.cpp.in
-      - lib/cmake/holoscan/wrap_resource_as_gxf_template/component.hpp.in
-      - lib/cmake/holoscan/WrapAsGXFComponent.cmake
-      - lib/cmake/holoscan/holoscan-targets.cmake
-      - lib/cmake/holoscan/holoscan-dependencies.cmake
+      - lib/cmake/holoscan
       - lib/libholo*.a
     requirements:
       build:
