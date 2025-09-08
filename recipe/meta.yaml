@@ -2,11 +2,11 @@
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
 {% set cuda_version = "12.6" %}      # min version holoscan works with
-{% set libtorch_version = "2.5.*" %}
+{% set libtorch_version = "2.7.*" %}
 {% set onnx_version = "1.22.*" %}
 {% set python_version = "3.12" %}    # holoscan python libs compiled for python 3.12
-{% set ucx_version = "1.17.0.*" %}
-{% set yaml_cpp_version = "0.7.0.*" %}
+{% set ucx_version = "1.19.0.*" %}
+{% set yaml_cpp_version = "0.8.0.*" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
