@@ -1,19 +1,18 @@
-{% set version = "3.5.0.1" %}
+{% set version = "3.6.0.2" %}
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
 {% set cuda_version = "12.6" %}      # min version holoscan works with
-{% set libtorch_version = "2.5.*" %}
-{% set onnx_version = "1.18.1.*" %}
+{% set libtorch_version = "2.7.*" %}
+{% set onnx_version = "1.22.*" %}
 {% set python_version = "3.12" %}    # holoscan python libs compiled for python 3.12
-{% set ucx_version = "1.17.0.*" %}
-{% set yaml_cpp_version = "0.7.0.*" %}
+{% set ucx_version = "1.19.0.*" %}
+{% set yaml_cpp_version = "0.8.0.*" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
 
-
-{% set sha256 = "2d00266f814963f152107a02363121780238842d4068a97c37822891d7c42b98" %}  # [linux64]
-{% set sha256 = "2e070a1cf497167f166ec312ab04e6529a27b0c8c7350cd047836ff52b072208" %}  # [aarch64 and arm_variant_type == "sbsa"]
+{% set sha256 = "792ff046571001cb8c523bfb8d21ef448e8955a3f8e7eb6c4f6a9ac6ad213ca1" %}  # [linux64]
+{% set sha256 = "fbde8134dec84d04c6aa56cbcc8f3bc35cc2edde0f944c10d83717856d8932c8" %}  # [aarch64 and arm_variant_type == "sbsa"]
 
 package:
   name: holoscan-split
@@ -62,7 +61,6 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
         - cuda-version {{ cuda_version }}
         - cuda-nvrtc-dev
@@ -71,11 +69,9 @@ outputs:
         - libtorch {{ libtorch_version }}
         - libtorch * cuda*
         - libvulkan-loader
-        - openssl
         - ucx {{ ucx_version }}
         - onnxruntime-cpp  {{ onnx_version }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", max_pin="x") }}  # [cuda_compiler_version != "None"]
         - cloudpickle
         - cuda-cudart
@@ -169,14 +165,12 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-version {{ cuda_version }}
         - python ={{ python_version }}
       run:
         - cupy
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-cudart
     test:
@@ -201,6 +195,8 @@ outputs:
 
   - name: libholoscan-dev
     build:
+      missing_dso_whitelist:
+        - "*libcuda.so*"              # driver
       run_exports:
         - {{ pin_subpackage("libholoscan", max_pin="x") }}
     files:
@@ -235,14 +231,12 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-version {{ cuda_version }}
         - python ={{ python_version }}
       run:
         - {{ pin_subpackage("libholoscan", exact=True) }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - cuda-nvcc         # holoscan wants to explicitly install this as it is needed for holoscan public interface
         - cuda-cudart
         - cuda-cudart-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
@@ -256,8 +250,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
-        - cuda-version {{ cuda_version }}
-        - cuda   # need entire CTK to compile all examples
+        - cuda-libraries-dev # need all CTK libs to compile all examples
         - patch  # needed by one of the examples
       files:
         - compile_examples.sh
