@@ -38,4 +38,5 @@ else
   cmake --build . --target activation_map -j"$(nproc)"
   cmake --build . --target bring_your_own_model -j"$(nproc)"
   cmake --build . --target holoviz -j"$(nproc)"
+  cmake --build . --target matx_basic -j"$(nproc)"
 fi
