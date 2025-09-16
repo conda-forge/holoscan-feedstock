@@ -1,26 +1,42 @@
-{% set version = "3.6.0.2" %}
+{% set version = "3.7.0.1" %}
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
-{% set cuda_version = "12.6" %}      # min version holoscan works with
 {% set libtorch_version = "2.7.*" %}
 {% set onnx_version = "1.22.*" %}
-{% set python_version = "3.12" %}    # holoscan python libs compiled for python 3.12
 {% set ucx_version = "1.19.0.*" %}
 {% set yaml_cpp_version = "0.8.0.*" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
 
-{% set sha256 = "792ff046571001cb8c523bfb8d21ef448e8955a3f8e7eb6c4f6a9ac6ad213ca1" %}  # [linux64]
-{% set sha256 = "fbde8134dec84d04c6aa56cbcc8f3bc35cc2edde0f944c10d83717856d8932c8" %}  # [aarch64 and arm_variant_type == "sbsa"]
+{% set sha256 = "a0a9a5375dc471f410001151a1ef1d0a9d87fa9fb4777a475047dec0c8468e32" %}  # [linux64]
+{% set sha256 = "cf4ed55ca68abd24a78f12a193ffc1f521147c4f60930487a57eb1effb5c1aaf" %}  # [aarch64 and arm_variant_type == "sbsa"]
 
 package:
   name: holoscan-split
   version: {{ version }}
 
 source:
-  url: https://developer.download.nvidia.com/compute/holoscan/redist/holoscan/{{ platform }}/holoscan-{{ platform }}-{{ version }}-archive.{{ extension }}
-  sha256: {{ sha256 }}
+  - url: "https://files.pythonhosted.org/packages/fa/56/39cdda335eb6b1a2f75fd251cbfb14df63f34a7421dfde74ff1421abe1e1/holoscan_cu12-3.7.0-cp310-cp310-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 310]
+    sha256: "1141e801af6fb55f47c2f67dc797807024c111ae1d9aa1d5c4b5bb058f2cb984"  # [linux64 and (cuda_compiler_version or "").startswith("12" ) and py == 310]
+  - url: "https://files.pythonhosted.org/packages/b9/47/95fe62a9e1f9d52e118f5e9edfc53fb91617fd8ccb645299f3dbba0be06a/holoscan_cu12-3.7.0-cp311-cp311-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
+    sha256: "f28161dfa9c940e9c16619e72c384016e4c8cc474b310a9fe17f191d84c9d7c2"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
+  - url: "https://files.pythonhosted.org/packages/72/ef/c7b2ad4206c70857423e3fe05dc3cc4898c8950084de399ca856fb13a352/holoscan_cu12-3.7.0-cp312-cp312-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 312]
+    sha256: "7adc470fd6a1f2e47415271f094933feeddef26887fd85a9098a967053cf2bd9"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 312]
+  - url: "https://files.pythonhosted.org/packages/1c/22/b6041b44dc1929a66885d391df8fe59e17aebeea2d1159860584a1ca7e3c/holoscan_cu12-3.7.0-cp313-cp313-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 313]
+    sha256: "10d7bd9c08ea0d1d96fbb4b84a4298297bcd7f8af62afeec12afdf24cdfb63e8"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 313]
+
+  - url: "https://files.pythonhosted.org/packages/e0/91/114add6f8a8143448dc6d64f5ba7d14b9ef3ee3d2fe8992e76c59ed56dcb/holoscan_cu12-3.7.0-cp310-cp310-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 310]
+    sha256: "bf5e58f4177eaa2e524c2ace87fa2c59461074a4b346dcfb0167b283f213d78d"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 310]
+  - url: "https://files.pythonhosted.org/packages/c1/b6/a6bbd4c3d830edddb4e1b4d57bb51a1383ff33f79f0191d77075956ff587/holoscan_cu12-3.7.0-cp311-cp311-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 311]
+    sha256: "086ff18754f9550044df280ca03115641eb38ffda0e26ecca88f931a0edc83b6"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 311]
+  - url: "https://files.pythonhosted.org/packages/c9/5e/245ca1b02babea1c768ac4470230a620793a8145660c690cd6819914e650/holoscan_cu12-3.7.0-cp312-cp312-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
+    sha256: "dd002ba7880d4d7b6f0c812a7661e4c800f1c327bcc27576b3c450754b29697f"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
+  - url: "https://files.pythonhosted.org/packages/8b/b0/43fccef49b70610f8a423a9e3aa5fcbbf4c6ea128b7c58ef24b13597701d/holoscan_cu12-3.7.0-cp313-cp313-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
+    sha256: "d5962a003a872512a7995af48ab65ee3a23687eea066306515998a9247b87b8b"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
+
+  - url: https://developer.download.nvidia.com/compute/holoscan/redist/holoscan/{{ platform }}/holoscan-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}
+    sha256: {{ sha256 }}
 
 build:
   number: 0
@@ -30,9 +46,9 @@ build:
 requirements:
   build:
     - cf-nvidia-tools 1  # [linux]
-    - python ={{ python_version }}
+    - python
   host:
-    - python ={{ python_version }}
+    - python
 
 outputs:
   - name: libholoscan
@@ -51,7 +67,7 @@ outputs:
         - cuda-version
       post-link: post-link
     files:
-      - lib/libholoscan*.so.*
+      - lib/libholo*.so.*
       - lib/gxf_extensions
       - lib/libgxf*.so
       - lib/libucxx.so
@@ -62,7 +78,7 @@ outputs:
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
       host:
-        - cuda-version {{ cuda_version }}
+        - cuda-version {{ cuda_compiler_version_min }}
         - cuda-nvrtc-dev
         - libjpeg-turbo
         - libnpp-dev
@@ -157,18 +173,26 @@ outputs:
         This is a runtime package only. Developers should install holoscan (python) and/or libholoscan-dev (C++ SDK) to build with Holoscan
 
   - name: holoscan
+    build:
+      skip: true  # [py<310 or py>313]
+      string: "py{{ py }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"
+      script: bash ${RECIPE_DIR}/bindings-build.sh
     files:
-      #- lib/python{{ python_version }}/site-packages/gxf  # Dropped GXP support in holoscan 3.3.0 with GXF 5.5.0. It may be added back in the future.
-      - lib/python{{ python_version }}/site-packages/holoscan
+      #- lib/python{{ python }}/site-packages/gxf  # Dropped GXP support in holoscan 3.3.0 with GXF 5.5.0. It may be added back in the future.
+      - lib/python{{ python }}/site-packages/holoscan
     requirements:
       build:
+        - cf-nvidia-tools 1  # [linux]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
+        - cross-python_{{ target_platform }}    # [build_platform != target_platform]
+        - python {{ python }}
       host:
         - {{ pin_subpackage("libholoscan", exact=True) }}
-        - cuda-version {{ cuda_version }}
-        - python ={{ python_version }}
+        - cuda-version {{ cuda_compiler_version_min }}
+        - python {{ python }}
+        - pip
       run:
         - cupy
         - {{ pin_subpackage("libholoscan", exact=True) }}
@@ -180,8 +204,8 @@ outputs:
       requires:
         - pip
       commands:
-        #- test -d $PREFIX/lib/python{{ python_version }}/site-packages/gxf  # Dropped GXP support in holoscan 3.3.0 with GXF 5.5.0. It may be added back in the future.
-        - test -d $PREFIX/lib/python{{ python_version }}/site-packages/holoscan
+        #- test -d $PREFIX/lib/python{{ python }}/site-packages/gxf  # Dropped GXP support in holoscan 3.3.0 with GXF 5.5.0. It may be added back in the future.
+        - test -d $PREFIX/lib/python{{ python }}/site-packages/holoscan/
         - pip check
     about:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
@@ -233,8 +257,7 @@ outputs:
         - {{ stdlib("c") }}
       host:
         - {{ pin_subpackage("libholoscan", exact=True) }}
-        - cuda-version {{ cuda_version }}
-        - python ={{ python_version }}
+        - cuda-version {{ cuda_compiler_version_min }}
       run:
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-nvcc         # holoscan wants to explicitly install this as it is needed for holoscan public interface

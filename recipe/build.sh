@@ -19,4 +19,3 @@ cp -rv bin $PREFIX/
 cp -rv examples $PREFIX/
 cp -rv lib $PREFIX/
 cp -rv include $PREFIX/
-cp -rv python/lib/* $SP_DIR/
