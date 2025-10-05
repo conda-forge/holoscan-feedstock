@@ -192,6 +192,7 @@ outputs:
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-version {{ cuda_compiler_version_min }}
         - python {{ python }}
+        - setuptools
         - pip
       run:
         - cupy
