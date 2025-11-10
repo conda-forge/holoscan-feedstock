@@ -1,39 +1,38 @@
-{% set version = "3.7.0.1" %}
+{% set version = "3.8.0.1" %}
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
 {% set libtorch_version = "2.7.*" %}
 {% set onnx_version = "1.22.*" %}
 {% set ucx_version = "1.19.0.*" %}
-{% set yaml_cpp_version = "0.8.0.*" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
 
-{% set sha256 = "a0a9a5375dc471f410001151a1ef1d0a9d87fa9fb4777a475047dec0c8468e32" %}  # [linux64]
-{% set sha256 = "cf4ed55ca68abd24a78f12a193ffc1f521147c4f60930487a57eb1effb5c1aaf" %}  # [aarch64 and arm_variant_type == "sbsa"]
+{% set sha256 = "4e3899e78906342bae42d824005736deb15e1040360273286de5e3f7c883f83d" %}  # [linux64]
+{% set sha256 = "3a7dd7e97021c5d1675a80633d6d917c5f1adafc0abdbf631602682020839807" %}  # [aarch64 and arm_variant_type == "sbsa"]
 
 package:
   name: holoscan-split
   version: {{ version }}
 
 source:
-  - url: "https://files.pythonhosted.org/packages/fa/56/39cdda335eb6b1a2f75fd251cbfb14df63f34a7421dfde74ff1421abe1e1/holoscan_cu12-3.7.0-cp310-cp310-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 310]
-    sha256: "1141e801af6fb55f47c2f67dc797807024c111ae1d9aa1d5c4b5bb058f2cb984"  # [linux64 and (cuda_compiler_version or "").startswith("12" ) and py == 310]
-  - url: "https://files.pythonhosted.org/packages/b9/47/95fe62a9e1f9d52e118f5e9edfc53fb91617fd8ccb645299f3dbba0be06a/holoscan_cu12-3.7.0-cp311-cp311-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
-    sha256: "f28161dfa9c940e9c16619e72c384016e4c8cc474b310a9fe17f191d84c9d7c2"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
-  - url: "https://files.pythonhosted.org/packages/72/ef/c7b2ad4206c70857423e3fe05dc3cc4898c8950084de399ca856fb13a352/holoscan_cu12-3.7.0-cp312-cp312-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 312]
-    sha256: "7adc470fd6a1f2e47415271f094933feeddef26887fd85a9098a967053cf2bd9"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 312]
-  - url: "https://files.pythonhosted.org/packages/1c/22/b6041b44dc1929a66885d391df8fe59e17aebeea2d1159860584a1ca7e3c/holoscan_cu12-3.7.0-cp313-cp313-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 313]
-    sha256: "10d7bd9c08ea0d1d96fbb4b84a4298297bcd7f8af62afeec12afdf24cdfb63e8"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 313]
+  - url: "https://files.pythonhosted.org/packages/eb/50/3e29af06593177f1ffdb7956bdc74402f382c2316b5e12e9fcd9c46ac59d/holoscan_cu12-3.8.0-cp310-cp310-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 310]
+    sha256: "55c241b35964a150d299a7f83f8d6c9b9838f3bfde17c336e4d8daddb733675c"  # [linux64 and (cuda_compiler_version or "").startswith("12" ) and py == 310]
+  - url: "https://files.pythonhosted.org/packages/b7/f1/0c8aa32a4e82cda3beef094d17b2c3bbb98b6c30ed90cdd58944989c8be8/holoscan_cu12-3.8.0-cp311-cp311-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
+    sha256: "c36803d2db64280a4e8aa3e9bda787f451872a4fb11493dd7f6cafd4718d91b3"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
+  - url: "https://files.pythonhosted.org/packages/94/f0/5b080892b01eea42e19491fbf62c56094af91dd3bf2f980f56da6fa18065/holoscan_cu12-3.8.0-cp312-cp312-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 312]
+    sha256: "cbf3c632c3c8a75988f7a1b6afbc355e51e965872410c46087eed2695ead48d4"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 312]
+  - url: "https://files.pythonhosted.org/packages/02/b5/1754814e1b7ed6526ba69d36f276a2bc6959b641df20a291a05a7ab587a2/holoscan_cu12-3.8.0-cp313-cp313-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 313]
+    sha256: "dbe1c4dbe2ec0f3dabd91d3aba42a064d54e4b35c62d02f5a388e4e76c76fb2f"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 313]
 
-  - url: "https://files.pythonhosted.org/packages/e0/91/114add6f8a8143448dc6d64f5ba7d14b9ef3ee3d2fe8992e76c59ed56dcb/holoscan_cu12-3.7.0-cp310-cp310-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 310]
-    sha256: "bf5e58f4177eaa2e524c2ace87fa2c59461074a4b346dcfb0167b283f213d78d"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 310]
-  - url: "https://files.pythonhosted.org/packages/c1/b6/a6bbd4c3d830edddb4e1b4d57bb51a1383ff33f79f0191d77075956ff587/holoscan_cu12-3.7.0-cp311-cp311-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 311]
-    sha256: "086ff18754f9550044df280ca03115641eb38ffda0e26ecca88f931a0edc83b6"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 311]
-  - url: "https://files.pythonhosted.org/packages/c9/5e/245ca1b02babea1c768ac4470230a620793a8145660c690cd6819914e650/holoscan_cu12-3.7.0-cp312-cp312-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
-    sha256: "dd002ba7880d4d7b6f0c812a7661e4c800f1c327bcc27576b3c450754b29697f"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
-  - url: "https://files.pythonhosted.org/packages/8b/b0/43fccef49b70610f8a423a9e3aa5fcbbf4c6ea128b7c58ef24b13597701d/holoscan_cu12-3.7.0-cp313-cp313-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
-    sha256: "d5962a003a872512a7995af48ab65ee3a23687eea066306515998a9247b87b8b"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
+  - url: "https://files.pythonhosted.org/packages/c0/91/74c545fcbfc6bbfde3413ba84552f6139b8b5c4119d5788310a658b8e7c0/holoscan_cu12-3.8.0-cp310-cp310-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 310]
+    sha256: "ad277942d8754689e4890516759eee68011ee76b9053a5be5f3ee75c2b4f5f23"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 310]
+  - url: "https://files.pythonhosted.org/packages/49/8f/789d88af0517e231763beb2b6f13d88e69315ed86207f4ca01fb068c2ac6/holoscan_cu12-3.8.0-cp311-cp311-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 311]
+    sha256: "7e11a69f5a3da851bdba26d854efa22b572226f45ecefac66ca0745574903fa9"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 311]
+  - url: "https://files.pythonhosted.org/packages/f6/ee/449127e7a4b036ff4f8fa9031c3fcec0ce164bfd2aa0c121acf0f9eb0ea8/holoscan_cu12-3.8.0-cp312-cp312-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
+    sha256: "e3e90bf1d626d7b5a663ecb0cc3cfa6a3fadc87e50e498df051e70afac726ab2"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
+  - url: "https://files.pythonhosted.org/packages/48/f4/9d7ae081b7ba5ea6d5a8f2ff3a1ef82fd84aff1c1c51dd3d8040bff85c9e/holoscan_cu12-3.8.0-cp313-cp313-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
+    sha256: "f905178f94894c851ed5e274b58b25a82526584e29e2e9c60fc2fbbe911c6dbd"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
 
   - url: https://developer.download.nvidia.com/compute/holoscan/redist/holoscan/{{ platform }}/holoscan-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}
     sha256: {{ sha256 }}
@@ -237,6 +236,7 @@ outputs:
       - bin/gxf_entity_codec.py
       - bin/get_cmake_cuda_archs.py
       - bin/holoscan
+      - bin/test_plattern_validation.py
       - bin/video_validation.py
       - examples/
       - include/3rdparty
@@ -248,7 +248,7 @@ outputs:
       - include/holoviz
       - include/magic_enum.hpp
       - include/rmm
-      - lib/libholoscan*.so
+      - lib/libholo*.so
       - lib/cmake/holoscan
       - lib/libholo*.a
     requirements:
@@ -266,7 +266,7 @@ outputs:
         - cuda-cudart-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
         - cuda-nvrtc-dev    # holoscan wants to explicitly install this as it is needed for holoscan public interface
         - libnpp-dev        # holoscan wants to explicitly install this as it is needed for holoscan public interface
-        - yaml-cpp          # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - yaml-cpp-static   # holoscan wants to explicitly install this as it is needed for holoscan public interface
     test:
       requires:
         - cmake
@@ -276,10 +276,9 @@ outputs:
         - {{ stdlib("c") }}
         - cuda-libraries-dev # need all CTK libs to compile all examples
         - patch  # needed by one of the examples
+        - yaml-cpp-static
       files:
         - compile_examples.sh
-      source_files:
-        - lib/libyaml-cpp.a
       commands:
         - test -f $PREFIX/bin/convert_gxf_entities_to_images.py
         - test -f $PREFIX/bin/convert_gxf_entities_to_video.py
@@ -305,6 +304,7 @@ outputs:
         - test -d $PREFIX/include/holoviz
         - test -f $PREFIX/include/magic_enum.hpp
         - test -d $PREFIX/include/rmm
+        - test -L $PREFIX/lib/libholoinfer_utils.so
         - test -L $PREFIX/lib/libholoscan_core.so
         - test -L $PREFIX/lib/libholoscan_infer.so
         - test -L $PREFIX/lib/libholoscan_infer_onnx_runtime.so

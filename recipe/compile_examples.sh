@@ -25,9 +25,6 @@ export CXXFLAGS="${CXXFLAGS} -fno-use-linker-plugin"
 echo CC = $CC
 echo CXX = $CXX
 
-# CMAKE test references libyaml-cpp.a so copy it to $PREFIX, even as we do not ship it
-cp -vf "$SRC_DIR/lib/libyaml-cpp.a" "$PREFIX/lib/"
-
 cmake -S $PREFIX/examples ${CMAKE_ARGS}
 
 if [[ ${target_platform} == "linux-64" ]]; then
