@@ -30,10 +30,11 @@ cmake -S $PREFIX/examples ${CMAKE_ARGS}
 if [[ ${target_platform} == "linux-64" ]]; then
   cmake --build . -j"$(nproc)"
 else
-  cmake --build . --target hello_world -j"$(nproc)"
-  cmake --build . --target video_replayer -j"$(nproc)"
-  cmake --build . --target activation_map -j"$(nproc)"
-  cmake --build . --target bring_your_own_model -j"$(nproc)"
-  cmake --build . --target holoviz -j"$(nproc)"
-  cmake --build . --target matx_basic -j"$(nproc)"
+  cmake --build . -j"$(nproc)" \
+    --target hello_world \
+    --target video_replayer \
+    --target activation_map \
+    --target holoviz_geometry \
+    --target matx_basic \
+    --target tensor_interop
 fi
