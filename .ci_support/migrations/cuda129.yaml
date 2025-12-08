@@ -7,7 +7,6 @@ __migrator:
   build_number:
     1
   paused: false
-  use_local: true
   override_cbc_keys:
     - cuda_compiler_stub
   check_solvable: false
@@ -34,8 +33,8 @@ __migrator:
     for their package. A good balance between broad support and storage
     footprint (resp. compilation time) is to add `sm_100` and `sm_120`.
     
-    Since CUDA 12.8, the conda-forge nvcc package now sets `CUDAARCHS` and
-    `TORCH_CUDA_ARCH_LIST` in its activation script to a string containing all
+    Since CUDA 12.8, the conda-forge nvcc package now sets `CUDAARCHS`
+    in its activation script to a string containing all
     of the supported real architectures plus the virtual architecture of the
     latest. Recipes for packages who use these variables to control their build
     but do not want to build for all supported architectures will need to override
@@ -47,13 +46,10 @@ cuda_compiler_version:         # [((linux and (x86_64 or aarch64)) or win64) and
   - 12.9                       # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
 
 cuda_compiler_version_min:     # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
-  - 12.6                       # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
-
-cudnn:                         # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
-  - 9                          # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 12.9                       # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
 
 c_stdlib_version:              # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
-  - 2.34                       # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 2.17                       # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
 
 c_compiler_version:            # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
   - 14                         # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
