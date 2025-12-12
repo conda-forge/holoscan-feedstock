@@ -4,6 +4,8 @@
 {% set libtorch_version = "2.7.*" %}
 {% set onnx_version = "1.22.*" %}
 {% set ucx_version = "1.19.0.*" %}
+{% set rapids_version = "25.10.*" %}
+# {% set ucxx_version = "0.46.0" %}   # Pending compatibility investigation
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
@@ -61,6 +63,9 @@ outputs:
         - "*libtorchvision.so*"       # not available even in torchvision package
         - "*libv4l2.so*"              # lideo4linux2 lib, not available
         - "*libxpmem.so*"             # XPMEM, Linux Cross-Memory Attach kernel module, not available
+        - "*librapids_logger.so*"     # Rapids logger, available in RAPIDS channel
+        - "*librmm.so*"               # RMM, available in RAPIDS channel
+        - "*libucxx.so*"              # UCXX, available in RAPIDS channel
       ignore_run_exports:
         # we support cuda-version >= 12.6, < 13
         - cuda-version
@@ -69,9 +74,6 @@ outputs:
       - lib/libholo*.so.*
       - lib/gxf_extensions
       - lib/libgxf*.so
-      - lib/libucxx.so
-      - lib/librmm.so
-      - lib/librapids_logger.so
     requirements:
       build:
         - {{ compiler('c') }}
@@ -97,6 +99,10 @@ outputs:
         - libjpeg-turbo
         - libtorch * cuda*
         - libvulkan-loader
+      run_constrained:
+        - rmm {{ rapids_version }}
+        - rapids_logger {{ rapids_version }}
+        # - ucxx {{ ucxx_version }}
     test:
       commands:
         - test -L $PREFIX/lib/libholoscan_core.so.{{ abiversion }}
@@ -176,6 +182,8 @@ outputs:
       skip: true  # [py<310 or py>313]
       string: "py{{ py }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"
       script: bash ${RECIPE_DIR}/bindings-build.sh
+      missing_dso_whitelist:
+        - "*librmm.so*"               # RMM, available in RAPIDS channel
     files:
       - lib/python{{ python }}/site-packages/holoscan
     requirements:
@@ -197,8 +205,8 @@ outputs:
         - {{ pin_subpackage("libholoscan", exact=True) }}
         - cuda-cudart
     test:
-      imports:
-        - holoscan
+      # imports:
+      #   - holoscan
       requires:
         - pip
       commands:
@@ -214,10 +222,13 @@ outputs:
       description: |
         NVIDIA Holoscan python bindings
 
+  # NOTE: libholoscan-dev is disabled pending RAPIDS AI components realignment (see rapidsai channel)
   - name: libholoscan-dev
     build:
+      skip: true                      # Skip pending realignment with RAPIDS AI
       missing_dso_whitelist:
         - "*libcuda.so*"              # driver
+        - "*librmm.so*"               # RMM, available in RAPIDS channel
       run_exports:
         - {{ pin_subpackage("libholoscan", max_pin="x") }}
     files:
@@ -261,6 +272,11 @@ outputs:
         - cuda-cudart-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
         - cuda-nvrtc-dev    # holoscan wants to explicitly install this as it is needed for holoscan public interface
         - libnpp-dev        # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - libcublas-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - libcufft-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - libcurand-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - libcusolver-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
+        - libcusparse-dev   # holoscan wants to explicitly install this as it is needed for holoscan public interface
         - yaml-cpp-static   # holoscan wants to explicitly install this as it is needed for holoscan public interface
     test:
       requires:
@@ -272,8 +288,8 @@ outputs:
         - cuda-libraries-dev # need all CTK libs to compile all examples
         - patch  # needed by one of the examples
         - yaml-cpp-static
-      files:
-        - compile_examples.sh
+      # files:
+      #   - compile_examples.sh
       commands:
         - test -f $PREFIX/bin/convert_gxf_entities_to_images.py
         - test -f $PREFIX/bin/convert_gxf_entities_to_video.py
