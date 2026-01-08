@@ -61,59 +61,59 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.10</td>
+              <td>linux_64_cuda_compiler_version12.9python3.10</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.10" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version12.9python3.10" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.11</td>
+              <td>linux_64_cuda_compiler_version12.9python3.11</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.11" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version12.9python3.11" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.12</td>
+              <td>linux_64_cuda_compiler_version12.9python3.12</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.12" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version12.9python3.12" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.13</td>
+              <td>linux_64_cuda_compiler_version12.9python3.13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.13" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version12.9python3.13" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.10</td>
+              <td>linux_aarch64_cuda_compiler_version12.9python3.10</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.10" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version12.9python3.10" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.11</td>
+              <td>linux_aarch64_cuda_compiler_version12.9python3.11</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.11" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version12.9python3.11" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.12</td>
+              <td>linux_aarch64_cuda_compiler_version12.9python3.12</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.12" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version12.9python3.12" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.13</td>
+              <td>linux_aarch64_cuda_compiler_version12.9python3.13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.13" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version12.9python3.13" alt="variant">
                 </a>
               </td>
             </tr>
@@ -131,7 +131,6 @@ Current release info
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-holoscan-green.svg)](https://anaconda.org/conda-forge/holoscan) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/holoscan.svg)](https://anaconda.org/conda-forge/holoscan) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/holoscan.svg)](https://anaconda.org/conda-forge/holoscan) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/holoscan.svg)](https://anaconda.org/conda-forge/holoscan) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libholoscan-green.svg)](https://anaconda.org/conda-forge/libholoscan) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libholoscan.svg)](https://anaconda.org/conda-forge/libholoscan) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libholoscan.svg)](https://anaconda.org/conda-forge/libholoscan) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libholoscan.svg)](https://anaconda.org/conda-forge/libholoscan) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-libholoscan--dev-green.svg)](https://anaconda.org/conda-forge/libholoscan-dev) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libholoscan-dev.svg)](https://anaconda.org/conda-forge/libholoscan-dev) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libholoscan-dev.svg)](https://anaconda.org/conda-forge/libholoscan-dev) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libholoscan-dev.svg)](https://anaconda.org/conda-forge/libholoscan-dev) |
 
 Installing holoscan
 ===================
@@ -143,16 +142,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `holoscan, libholoscan, libholoscan-dev` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `holoscan, libholoscan` can be installed with `conda`:
 
 ```
-conda install holoscan libholoscan libholoscan-dev
+conda install holoscan libholoscan
 ```
 
 or with `mamba`:
 
 ```
-mamba install holoscan libholoscan libholoscan-dev
+mamba install holoscan libholoscan
 ```
 
 It is possible to list all of the versions of `holoscan` available on your platform with `conda`:
