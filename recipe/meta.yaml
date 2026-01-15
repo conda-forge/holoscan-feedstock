@@ -5,7 +5,10 @@
 {% set onnx_version = "1.22.*" %}
 {% set ucx_version = "1.19.0.*" %}
 {% set rapids_version = "25.10.*" %}
-{% set ucxx_version = "0.46.0" %}
+# This needs to stay in sync with 'rapids_version', e.g. for 'rapids_version=25.10 this should be '0.46.0'.
+# To find the corresponding ucxx_version for a given rapids_version, see e.g.
+# https://version.gpuci.io/rapids/25.10
+{% set ucxx_version = "0.46.*" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
