@@ -1,7 +1,6 @@
 {% set version = "3.10.0.0" %}
 {% set abiversion = version.split('.')[0] %}
 {% set libversion = version.split('.')[:3] | join('.') %}
-{% set libtorch_version = "2.7.*" %}
 {% set onnx_version = "1.22.*" %}
 {% set ucx_version = "1.19.0.*" %}
 {% set rapids_version = "25.10.*" %}
@@ -43,7 +42,7 @@ source:
     sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not (linux64 or aarch64)]
   skip: true  # [cuda_compiler_version in (None, "None", "") or (cuda_compiler_version or "").startswith("11")]
 
@@ -88,7 +87,7 @@ outputs:
         - cuda-nvrtc-dev
         - libjpeg-turbo
         - libnpp-dev
-        - libtorch {{ libtorch_version }}
+        - libtorch
         - libtorch * cuda*
         - libvulkan-loader
         - ucx {{ ucx_version }}
