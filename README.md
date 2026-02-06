@@ -61,59 +61,59 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_python3.10</td>
+              <td>linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.10</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.10" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.10" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_python3.11</td>
+              <td>linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.11</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.11" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.11" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_python3.12</td>
+              <td>linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.12</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.12" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.12" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_python3.13</td>
+              <td>linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.13" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.34cuda_compiler_version12.9python3.13" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_python3.10</td>
+              <td>linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.10</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_python3.10" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.10" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_python3.11</td>
+              <td>linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.11</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_python3.11" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.11" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_python3.12</td>
+              <td>linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.12</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_python3.12" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.12" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_python3.13</td>
+              <td>linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25118&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_python3.13" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/holoscan-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.34cuda_compiler_version12.9python3.13" alt="variant">
                 </a>
               </td>
             </tr>
