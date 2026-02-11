@@ -44,11 +44,13 @@ requirements:
     - cf-nvidia-tools 1  # [linux]
   host:
     - libholoscan {{ version }}
-    - cuda-version {{ cuda_compiler_version_min }}
+    - cuda-version {{ cuda_compiler_version }}
     - python
     - setuptools
     - pip
   run:
+    - {{ pin_compatible('cuda-version', max_pin='x', min_pin='x') }}
+    - cuda-version >={{ cuda_compiler_version_min }}
     - cupy
     - libholoscan {{ version }}
     - cuda-cudart
