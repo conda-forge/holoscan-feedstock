@@ -40,19 +40,19 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
     - cross-python_{{ target_platform }}    # [build_platform != target_platform]
-    - python {{ python }}
+    - python
     - cf-nvidia-tools 1  # [linux]
   host:
     - libholoscan {{ version }}
     - cuda-version {{ cuda_compiler_version_min }}
-    - python {{ python }}
+    - python
     - setuptools
     - pip
   run:
     - cupy
     - libholoscan {{ version }}
     - cuda-cudart
-    - python {{ python }}
+    - python
 
 test:
   # imports:
