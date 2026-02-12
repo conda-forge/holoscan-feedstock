@@ -1,21 +1,13 @@
 #!/bin/bash
+set -ex
 
-set -e
-set -x
+py=${PY_VER//./}
 
-# Create the site-packages dir if it doesn't exist
-mkdir -p $SP_DIR
-echo "site-packages dir, SP_DIR = $SP_DIR"
+python -m zipfile -e holoscan*-cp${py}-cp${py}-manylinux_*.whl holoscan
+cd holoscan
+cp holoscan*.dist-info/LICENSE.txt $SRC_DIR/LICENSE
+cp holoscan*.dist-info/NOTICE.txt $SRC_DIR/NOTICE
+rm -rvf holoscan*.data/purelib/holoscan/lib
+cp -rvp holoscan*.data/purelib/holoscan $SP_DIR/
 
-rm -vr include/yaml-cpp
-
-rm -v lib/libuc[mpst]*
-rm -vr lib/ucx
-
-check-glibc bin/* lib/* lib/ucx/* lib/gxf_extensions/*
-find python/ -name "*.so*" | xargs -I"{}" check-glibc "{}"
-
-cp -rv bin $PREFIX/
-cp -rv examples $PREFIX/
-cp -rv lib $PREFIX/
-cp -rv include $PREFIX/
+find $SP_DIR/holoscan/ -name "*.so" | xargs -I"{}" check-glibc "{}"
