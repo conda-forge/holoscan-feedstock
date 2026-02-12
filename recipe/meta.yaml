@@ -52,7 +52,7 @@ requirements:
     - {{ pin_compatible('cuda-version', max_pin='x', min_pin='x') }}
     - cuda-version >={{ cuda_compiler_version_min }}
     - cupy
-    - libholoscan {{ version }}
+    - libholoscan {{ version }}.*
     - cuda-cudart
     - python
 
@@ -62,7 +62,7 @@ test:
   requires:
     - pip
   commands:
-    - test -d $PREFIX/lib/python{{ python }}/site-packages/holoscan/
+    - test -d $SP_DIR/holoscan/
     - pip check
 
 about:
