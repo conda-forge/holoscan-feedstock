@@ -12,5 +12,3 @@ github:
 provider:
   linux_64: default
   linux_aarch64: default
-
-channel_priority: flexible
