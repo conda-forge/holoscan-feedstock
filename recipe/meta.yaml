@@ -50,7 +50,7 @@ requirements:
     - pip
   run:
     - {{ pin_compatible('cuda-version', max_pin='x', min_pin='x') }}
-    - cloudpickle
+    - cloudpickle >=3.0
     - cuda-version >={{ cuda_compiler_version_min }}
     - cupy
     - libholoscan {{ version }}.*
