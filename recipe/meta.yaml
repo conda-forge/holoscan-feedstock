@@ -1,27 +1,27 @@
-{% set version = "4.1.0.1" %}
+{% set version = "4.2.0.1" %}
 
 package:
   name: holoscan
   version: {{ version }}
 
 source:
-  - url: "https://files.pythonhosted.org/packages/63/ad/5fb53b5b48b900a5aeaa2675e0c4a33e9849ba756d789c9fcef6e329098d/holoscan_cu12-4.1.0-cp310-cp310-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 310]
-    sha256: "d6d8e0faafa2448879b3e7f64136032ae4acf7400a21bca17fb6d2235cac8fa3"  # [linux64 and (cuda_compiler_version or "").startswith("12" ) and py == 310]
-  - url: "https://files.pythonhosted.org/packages/bd/ab/1e8cf9f43546104eb9ec763445e575aa4a9b606a3099a06cc510c71d8f2e/holoscan_cu12-4.1.0-cp311-cp311-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
-    sha256: "28745a929fced80070c22ca619746919fe4d7540cfc9b01215446a48b72146ff"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
-  - url: "https://files.pythonhosted.org/packages/f9/ed/19fbfee8ce39fa294397bceacb1210605c1a9599cbc102d2f4045f9a6c72/holoscan_cu12-4.1.0-cp312-cp312-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 312]
-    sha256: "8d0b6585fe1e0a00eaf4002aec561a78dd1b979cd14bb48cbc626f0a90555fb6"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 312]
-  - url: "https://files.pythonhosted.org/packages/67/64/c2645e61cdf2d8cf99ae9b14c050ab1830a02c637eae8b3e2153f43a2d3b/holoscan_cu12-4.1.0-cp313-cp313-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 313]
-    sha256: "13fd1bf95ed4c7940cd4d4322f0c5f85751ddfd4499cf73b0c296ae900b5190d"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 313]
+  - url: "https://files.pythonhosted.org/packages/de/20/8cd0adc3ebc00d9da3303515bc22ff2de7c3a3031f16ce1f3f1b070fbda9/holoscan_cu12-4.2.0-cp310-cp310-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 310]
+    sha256: "ac0030a407049aeeca20b1347ff50906f9c0172cc03821e8175423e365aebe8b"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 310]
+  - url: "https://files.pythonhosted.org/packages/c0/77/c6d97e0264fc96d3cb63bf613772889ec285331f4ea4fcaecf2a739c3ff3/holoscan_cu12-4.2.0-cp311-cp311-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
+    sha256: "4079c9ec29e07c567dbd498c1a49b8111a52def7bc4f83f4ce9fa0aae1f2cece"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
+  - url: "https://files.pythonhosted.org/packages/86/62/36a6de42f4e160d4c5f299f8a2ef08951c83d9a4e8ce8c4afb8ac239f351/holoscan_cu12-4.2.0-cp312-cp312-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 312]
+    sha256: "3a5e0cce84d94a4cc461a8a362592ebd8106198dcc8b33f10c871d6fbe1d5c45"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 312]
+  - url: "https://files.pythonhosted.org/packages/c7/3e/23b21939ce0416072539cceb9883acfb61cf6a1f2017faf8460ad1d8dca1/holoscan_cu12-4.2.0-cp313-cp313-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 313]
+    sha256: "50a6bfc917c068ee442c059b5e5669a4e0a5bcaa5836b9fa356374332dfbebb0"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 313]
 
-  - url: "https://files.pythonhosted.org/packages/21/e7/2d881c4a9523976f0ed86fdfa937900184a5fb703b9d968e2cb6d70c58c8/holoscan_cu12-4.1.0-cp310-cp310-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 310]
-    sha256: "d0e361d035d0ae3f25a812a1b63d19251c29c2cf55b67bdeae0b970e24ac5697"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 310]
-  - url: "https://files.pythonhosted.org/packages/87/da/277ded33f7b9bb53f60ac36ce83f00b75292a60c98bf30105b8927c60f45/holoscan_cu12-4.1.0-cp311-cp311-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 311]
-    sha256: "ef61daf06bbf24c1a3c3e9723eb0a7299dafacdbfd9e2de43cfb7b2fca233ba7"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 311]
-  - url: "https://files.pythonhosted.org/packages/9c/76/cf9e4493f95bdeb266e000735a8b29e4d33c3547d788271009cd44d9a2db/holoscan_cu12-4.1.0-cp312-cp312-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
-    sha256: "fce4f1db89ea6df1a2e4348d015ac81d8b01338e6ae855c4795f0e564972ed08"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
-  - url: "https://files.pythonhosted.org/packages/bc/8b/76da95e113ead30ff0df6d86d65757cacea0319c4331a97eb410b4d67089/holoscan_cu12-4.1.0-cp313-cp313-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
-    sha256: "47e62285f780be6037954409eed6a92212130ada03af09dda8f86ad21331d013"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
+  - url: "https://files.pythonhosted.org/packages/01/b6/040798edba0f5c416d6e9ff3aeb0537aa21644e98fe38ca7b14e7c213a7e/holoscan_cu12-4.2.0-cp310-cp310-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 310]
+    sha256: "d98dace790ef82c50a20b25219e7650c8af9f7423aa07e3b54eb8bba52028a91"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 310]
+  - url: "https://files.pythonhosted.org/packages/77/82/1af146aee078aae77636fdff7a7ded9ef3483cf03653f31969b705f79e2c/holoscan_cu12-4.2.0-cp311-cp311-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 311]
+    sha256: "815d62c19384421fa5a7a512be9b2230a66cd7aa08b24fbe9df250d912f53dd3"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 311]
+  - url: "https://files.pythonhosted.org/packages/22/92/a9d10566bac9296dfbbca4b8536f223ad5bdd91a6a01ccf88f38335af2b4/holoscan_cu12-4.2.0-cp312-cp312-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
+    sha256: "86d040f2c951fa9dcdfbbc5b77da569aa3706978cd8ee145813edf9922a8cf08"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
+  - url: "https://files.pythonhosted.org/packages/33/e4/2589e5ddf6489fddd950917f1a9c17967f823288d9ff03bb698378a46e8f/holoscan_cu12-4.2.0-cp313-cp313-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
+    sha256: "2c9e9708a8fa66d87f5cf0aa6118350c839b190bb10801e2d745c9c0c9796b1e"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
 
 build:
   number: 0
