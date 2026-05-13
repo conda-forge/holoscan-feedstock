@@ -1,10 +1,15 @@
-{% set version = "4.2.0.1" %}
+{% set version = environ.get("HOLOSCAN_VERSION", "4.2.0.1") %}
 
 package:
   name: holoscan
   version: {{ version }}
 
+{% if environ.get("HOLOSCAN_LOCAL_WHEEL_DIR") %}
 source:
+  path: {{ environ["HOLOSCAN_LOCAL_WHEEL_DIR"] }}
+{% else %}
+source:
+  # CUDA 12 wheels
   - url: "https://files.pythonhosted.org/packages/de/20/8cd0adc3ebc00d9da3303515bc22ff2de7c3a3031f16ce1f3f1b070fbda9/holoscan_cu12-4.2.0-cp310-cp310-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 310]
     sha256: "ac0030a407049aeeca20b1347ff50906f9c0172cc03821e8175423e365aebe8b"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 310]
   - url: "https://files.pythonhosted.org/packages/c0/77/c6d97e0264fc96d3cb63bf613772889ec285331f4ea4fcaecf2a739c3ff3/holoscan_cu12-4.2.0-cp311-cp311-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("12") and py == 311]
@@ -22,6 +27,10 @@ source:
     sha256: "86d040f2c951fa9dcdfbbc5b77da569aa3706978cd8ee145813edf9922a8cf08"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 312]
   - url: "https://files.pythonhosted.org/packages/33/e4/2589e5ddf6489fddd950917f1a9c17967f823288d9ff03bb698378a46e8f/holoscan_cu12-4.2.0-cp313-cp313-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
     sha256: "2c9e9708a8fa66d87f5cf0aa6118350c839b190bb10801e2d745c9c0c9796b1e"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
+  # CUDA 13 wheels: add `holoscan_cu13-*` entries here (mirroring the CUDA 12 blocks above)
+  # once they are published on PyPI. For local dev builds with CUDA 13, set
+  # HOLOSCAN_LOCAL_WHEEL_DIR (see the {% if %} branch above) and these URL entries are bypassed.
+{% endif %}
 
 build:
   number: 0
