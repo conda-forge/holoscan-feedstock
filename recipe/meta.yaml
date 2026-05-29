@@ -4,10 +4,6 @@ package:
   name: holoscan
   version: {{ version }}
 
-{% if environ.get("HOLOSCAN_LOCAL_WHEEL_DIR") %}
-source:
-  path: {{ environ["HOLOSCAN_LOCAL_WHEEL_DIR"] }}
-{% else %}
 source:
   - url: "https://files.pythonhosted.org/packages/7f/de/c332470b67b5f8037d4a0a93197bd0d04d767d8b96a6d7330006cab37b41/holoscan_cu13-4.3.0-cp310-cp310-manylinux_2_35_x86_64.whl"  # [linux64 and (cuda_compiler_version or "").startswith("13") and py == 310]
     sha256: "5574e63c5893816f8a47d6a45e12d94ed9e2b2d187da30ab53f2ac65c7c2f46b"  # [linux64 and (cuda_compiler_version or "").startswith("13") and py == 310]
@@ -26,7 +22,6 @@ source:
     sha256: "1a53cad723cb7d139fdcba9ea8a6ebe20dfbd3fefb6b5a76a9774bdf9e52adad"  # [aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa" and py == 312]
   - url: "https://files.pythonhosted.org/packages/5f/b4/43f00b9de8cb5c76c4ff16eaa46e5bcec6f764e482ad80ccf770e722d50c/holoscan_cu13-4.3.0-cp313-cp313-manylinux_2_35_aarch64.whl"  # [aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa" and py == 313]
     sha256: "a45b161744854cd70881b993617053873f6aa0f0a048a247c2d7f2ec29ed40c3"  # [aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa" and py == 313]
-{% endif %}
 
 build:
   number: 0
