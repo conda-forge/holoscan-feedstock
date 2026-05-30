@@ -24,7 +24,7 @@ source:
     sha256: "2c9e9708a8fa66d87f5cf0aa6118350c839b190bb10801e2d745c9c0c9796b1e"  # [aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa" and py == 313]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not (linux64 or aarch64)]
   skip: true  # [cuda_compiler_version in (None, "None", "") or (cuda_compiler_version or "").startswith("11")]
   skip: true  # [py<310 or py>313]
