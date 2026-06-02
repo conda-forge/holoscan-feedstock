@@ -1,5 +1,13 @@
+c_compiler_version:            # [unix]
+  - 14                         # [linux]
+cxx_compiler_version:          # [unix]
+  - 14                         # [linux]
+fortran_compiler_version:      # [unix]
+  - 14                         # [linux]
 c_stdlib_version:              # [unix]
-  - 2.34                       # [linux]
-  - 2.34                       # [linux and not ppc64le and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 2.34                       # [linux and x86_64]
+  - 2.39                       # [linux and aarch64]
+cuda_compiler_version:         # [unix]
+  - 13.0                       # [linux]
 cuda_compiler_version_min:
-  - 12.6
+  - 13.0
